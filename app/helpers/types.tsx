@@ -7,6 +7,9 @@ export type RegisterFormType = {
     name: string;
     email: string;
     password: string;
+    address:string;
+    lastname:string;
+    fistname:string;
     confirmPassword: string;
 };
 

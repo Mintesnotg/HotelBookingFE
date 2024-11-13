@@ -1,6 +1,6 @@
 "use client"
 
-import { loginschema, registerschema } from '@/app/helpers/login_registerschema';
+import { loginschema, } from '@/app/helpers/login_registerschema';
 import { useForm, SubmitHandler } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -15,7 +15,6 @@ const Login = () => {
         handleSubmit,
         formState: { errors },
       } = useForm<LoginFormType>({
-        
         resolver: zodResolver(loginschema)
       });    
       
@@ -38,23 +37,23 @@ const Login = () => {
 
 
                         <div className="mb-4">
-                            <label htmlFor="email" {...register("email")} className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Email Address</label>
-                            <input type="email" id="email" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" placeholder="your@email.com"  />
+                            <label   className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Email Address</label>
+                            <input {...register("email")} type="email" id="email" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" placeholder="your@email.com"  />
                       
-                            <span className=' bg-red-400'>
-                            {errors.email && <p>{errors.email.message}</p>}
+                            <span className='text-red-300'>
+                                {errors.email && <p>{errors.email.message}</p>}
                             </span>
                         </div>
                         <div className="mb-4">
-                            <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Password</label>
+                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Password</label>
                             <input type="password" {...register("password")} id="password" className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" placeholder="Enter your password"  />
                            
-                            <span  className=' bg-red-400'>
+                            <span  className='text-red-300'>
                             {errors.password && <p>{errors.password.message}</p>}
 
                             </span>
                             <a href="#"
-                                className="text-xs text-gray-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">htmlForgot
+                                className="text-xs text-gray-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"> Forgot
                                 Password?</a>
                         </div>
                         <div className="flex items-center justify-between mb-4">

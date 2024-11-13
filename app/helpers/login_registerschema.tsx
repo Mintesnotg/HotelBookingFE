@@ -3,7 +3,7 @@ import { LoginFormType } from './types'
 import z, { string } from 'zod'
 
 export const loginschema = z.object({
-    email: z.string().email({ message: "Invalid email address" }),
+    email: z.string().min(1, { message: "Email is required " }).email({ message: "Invalid Email address " }),
     password: z.string().min(8, { message: "password must be at least 8 characters long" })
 
 })
@@ -35,21 +35,23 @@ const passwordSchema = z
     });
 
 
-export const PasswordSchema = z.object({
+// export const PasswordSchema = z.object({
 
-    Password: passwordSchema,
-    ConfirmationPassword: z.string()
+//     Password: passwordSchema,
+//     ConfirmationPassword: z.string()
 
-}).refine((data) => data.Password === data.ConfirmationPassword, {
-    message: "Passwords do not match",
-    path: ['ConfirmationPassword']
-});
+// }).refine((data) => data.Password === data.ConfirmationPassword, {
+//     message: "Passwords do not match",
+//     path: ['ConfirmationPassword']
+// });
 export const registerschema = z.object({
 
-    fistname: string().min(1, { message: "first name is required" }),
-    email: string().email({ message: "email is not valid" }),
+    fistname: z.string().min(1, { message: "First Name is required" }),
+    lastname : z.string().min(1,{message:"Last Name is required"}),
+    email: z.string().email({ message: "Email is not valid" }),
+    address:z.string(),
     password: passwordSchema,
-    ConfirmationPassword: z.string()
+    ConfirmationPassword: string()
 
 
 }).refine((data) => data.password === data.ConfirmationPassword, {
