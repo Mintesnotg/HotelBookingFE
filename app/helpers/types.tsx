@@ -10,7 +10,12 @@ export type RegisterFormType = {
     address:string;
     lastname:string;
     fistname:string;
-    confirmPassword: string;
+    ConfirmationPassword: string;
+};
+
+export type ApiResponse = {
+    message?: string;
+    error?: string;
 };
 
 
