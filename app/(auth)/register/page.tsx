@@ -36,16 +36,16 @@ const Register = () => {
             // Set loading to true before submitting
             setsigninloading(true);
             const result = await UserRegistration(data)
-            toast(result.message)
-    
+            toast.success(result.message)
+            alert(result.message)
+            setsigninloading(false);
+
             // Simulate API call or other async operations here
             // e.g., await someApiCall(data);
         } catch (error) {
-            console.error("Error during submission:", error);
-        } finally {
-            // Reset loading to false after the delay or API call
             setsigninloading(false);
-            console.log("Submission complete");
+
+            console.error("Error during submission:", error);
         }
     };
     
@@ -60,15 +60,15 @@ const Register = () => {
                     <div className="w-full grid grid-cols-1  gap-4 mb-5">
                         <div className="flex items-start flex-col justify-start">
                             <label htmlFor="fistname" className="text-sm text-gray-700 dark:text-gray-200 mr-2">First Name </label>
-                            <input type="text" {...register("fistname")} name="fistname" className="w-full px-3 dark:text-gray-200 dark:bg-gray-900 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500" />
+                            <input type="text" {...register("firstname")}  className="w-full px-3 dark:text-gray-200 dark:bg-gray-900 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500" />
                             <span className='text-red-300'>
-                                {errors.fistname && <p>{errors.fistname.message}</p>}
+                                {errors.firstname && <p>{errors.firstname.message}</p>}
                             </span>
                         </div>
 
                         <div className="flex items-start flex-col justify-start">
                             <label htmlFor="lastName" className="text-sm text-gray-700 dark:text-gray-200 mr-2">Last Name:</label>
-                            <input type="text" {...register("lastname")} name="lastname" className="w-full px-3 dark:text-gray-200 dark:bg-gray-900 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500" />
+                            <input type="text" {...register("lastname")}  className="w-full px-3 dark:text-gray-200 dark:bg-gray-900 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500" />
                             <span className='text-red-300'>
                                 {errors.lastname && <p>{errors.lastname.message}</p>}
                             </span>
@@ -76,7 +76,7 @@ const Register = () => {
 
                         <div className="flex items-start flex-col justify-start">
                             <label htmlFor="email" className="text-sm text-gray-700 dark:text-gray-200 mr-2">Email </label>
-                            <input type="email" {...register("email")} name="email" className="w-full px-3 dark:text-gray-200 dark:bg-gray-900 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500" />
+                            <input type="email" {...register("email")}  className="w-full px-3 dark:text-gray-200 dark:bg-gray-900 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500" />
 
                             <span className='text-red-300'>
                                 {errors.email && <p>{errors.email.message}</p>}
@@ -84,7 +84,7 @@ const Register = () => {
                         </div>
                         <div className="flex items-start flex-col justify-start">
                             <label htmlFor="email" className="text-sm text-gray-700 dark:text-gray-200 mr-2">Address </label>
-                            <input type="text" {...register("address")} name="address" className="w-full px-3 dark:text-gray-200 dark:bg-gray-900 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500" />
+                            <input type="text" {...register("address")}  className="w-full px-3 dark:text-gray-200 dark:bg-gray-900 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500" />
                             <span className='text-red-300'>
                                 {errors.address && <p>{errors.address.message}</p>}
                             </span>
@@ -92,7 +92,7 @@ const Register = () => {
 
                         <div className="flex items-start flex-col justify-start">
                             <label htmlFor="password" className="text-sm text-gray-700 dark:text-gray-200 mr-2">Password </label>
-                            <input type="password" id="password" {...register("password")} name="password" className="w-full px-3 dark:text-gray-200 dark:bg-gray-900 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500" />
+                            <input type="password" id="password" {...register("password")}  className="w-full px-3 dark:text-gray-200 dark:bg-gray-900 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500" />
                             <span className='text-red-300'>
                                 {errors.password && <p>{errors.password.message}</p>}
                             </span>

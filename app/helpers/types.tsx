@@ -13,7 +13,7 @@ export type RegisterFormType = {
     ConfirmationPassword: string;
 };
 
-export type ApiResponse = {
+export type UserRegApiResponse = {
     message?: string;
     error?: string;
 };

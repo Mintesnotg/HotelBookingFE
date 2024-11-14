@@ -35,18 +35,10 @@ const passwordSchema = z
     });
 
 
-// export const PasswordSchema = z.object({
 
-//     Password: passwordSchema,
-//     ConfirmationPassword: z.string()
-
-// }).refine((data) => data.Password === data.ConfirmationPassword, {
-//     message: "Passwords do not match",
-//     path: ['ConfirmationPassword']
-// });
 export const registerschema = z.object({
 
-    fistname: z.string().min(1, { message: "First Name is required" }),
+    firstname: z.string().min(1, { message: "First Name is required" }),
     lastname : z.string().min(1,{message:"Last Name is required"}),
     email: z.string().email({ message: "Email is not valid" }),
     address:z.string(),
