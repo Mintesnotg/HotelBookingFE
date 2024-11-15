@@ -33,6 +33,7 @@ const Register = () => {
     const [signinloading, setsigninloading] = useState(false);
 
 
+    const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
     const onSubmit = async (data: RegisterFormType) => {
 
@@ -42,10 +43,24 @@ const Register = () => {
             // Set loading to true before submitting
             setsigninloading(true);
             const result = await UserRegistration(data)
-            setTimeout(() => {
-                toast.success(`${result.message}`)
-            }, 2000);
-            router.push("/login")
+            if (result.status == 1) {
+
+                
+                toast.success(`${result.message}` ,{duration :5000})          ;
+         
+                  setTimeout(() => {
+                    router.push('login')
+
+                  }, 4000);
+      
+  
+            } else {
+           
+                    toast.error(`${result.message}` , {
+                        duration:3000
+                    })
+            }
+
             setsigninloading(false);
 
             // Simulate API call or other async operations here
@@ -62,8 +77,8 @@ const Register = () => {
 
         <>
 
-            <Toaster />
-            <div className="max-w-lg mx-auto mt-[5rem]  bg-white dark:bg-gray-800 rounded-lg shadow-md px-8 py-10 flex flex-col items-center">
+            <Toaster   />
+            <div className="max-w-lg mx-auto mt-[3rem]  bg-white dark:bg-gray-800 rounded-lg shadow-md px-8 py-10 flex flex-col items-center">
                 <h1 className="text-xl font-bold text-center text-gray-700 dark:text-gray-200 mb-8">Welcome to Our Hotel </h1>
                 <form onSubmit={handleSubmit(onSubmit)} action="#" className='w-full' >
                     <div className="w-full grid grid-cols-1  gap-4 mb-5">

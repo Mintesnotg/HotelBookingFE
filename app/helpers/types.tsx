@@ -9,13 +9,13 @@ export type RegisterFormType = {
     password: string;
     address:string;
     lastname:string;
-    fistname:string;
+    firstname:string;
     ConfirmationPassword: string;
 };
 
 export type UserRegApiResponse = {
     message?: string;
-    error?: string;
+    status?: number;
 };
 
 

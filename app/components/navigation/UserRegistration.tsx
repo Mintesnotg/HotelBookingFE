@@ -15,10 +15,10 @@ debugger;
 
      const result: UserRegApiResponse = await response.json();
 
-    if (!response.ok) {
-        throw new Error(result.error || 'Something went wrong. Please try again.');
+    // if (!response.ok) {
+    //     return result
 
-    }
+    // }
 
     return result
 }
