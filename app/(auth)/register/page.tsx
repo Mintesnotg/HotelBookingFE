@@ -29,45 +29,25 @@ const Register = () => {
         resolver: zodResolver(registerschema)
     });
 
-    //   const onSubmit: SubmitHandler<LoginFormType> = (data) => console.log(data)
     const [signinloading, setsigninloading] = useState(false);
-
-
-    const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
-
     const onSubmit = async (data: RegisterFormType) => {
-
-        console.log(data);
-    
         try {
-            // Set loading to true before submitting
             setsigninloading(true);
             const result = await UserRegistration(data)
-            if (result.status == 1) {
-
-                
-                toast.success(`${result.message}` ,{duration :5000})          ;
-         
-                  setTimeout(() => {
-                    router.push('login')
-
-                  }, 4000);
-      
-  
-            } else {
-           
-                    toast.error(`${result.message}` , {
-                        duration:3000
-                    })
+            toast[result.status === 1 ? "success" : "error"](`${result.message}`, {
+                duration: result.status === 1 ? 5000 : 3000,
+            });
+            if (result.status === 1) {
+                setTimeout(() => router.push("login"), 4000);
             }
-
             setsigninloading(false);
 
-            // Simulate API call or other async operations here
-            // e.g., await someApiCall(data);
         } catch (error) {
             setsigninloading(false);
             console.error("Error during submission:", error);
+        } finally {
+            setsigninloading(false);
+
         }
     };
     
