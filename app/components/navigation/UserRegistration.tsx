@@ -5,7 +5,7 @@ const  UserRegistration = async (data :RegisterFormType) :Promise<UserRegApiResp
 
 debugger;
 
-    console.log(`  base url is ${process.env.NEXT_PUBLIC_BASE_URL}` )
+
      const response= await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/Account/Register` ,{
 
         method :'POST',

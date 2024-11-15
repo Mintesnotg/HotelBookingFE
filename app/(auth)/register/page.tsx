@@ -11,10 +11,15 @@ import { useForm } from 'react-hook-form';
 
 import React from 'react'
 import UserRegistration from '@/app/components/navigation/UserRegistration';
-import { toast } from 'react-toastify';
+import toast ,{ Toaster } from 'react-hot-toast';
+
+import { useRouter } from 'next/navigation';
+
+
 
 
 const Register = () => {
+    const router = useRouter()
 
     const {
         register,
@@ -27,24 +32,26 @@ const Register = () => {
     //   const onSubmit: SubmitHandler<LoginFormType> = (data) => console.log(data)
     const [signinloading, setsigninloading] = useState(false);
 
-    const delay = (ms: number): Promise<void> => new Promise(resolve => setTimeout(resolve, ms));
+
 
     const onSubmit = async (data: RegisterFormType) => {
+
         console.log(data);
     
         try {
             // Set loading to true before submitting
             setsigninloading(true);
             const result = await UserRegistration(data)
-            toast.success(result.message)
-            alert(result.message)
+            setTimeout(() => {
+                toast.success(`${result.message}`)
+            }, 2000);
+            router.push("/login")
             setsigninloading(false);
 
             // Simulate API call or other async operations here
             // e.g., await someApiCall(data);
         } catch (error) {
             setsigninloading(false);
-
             console.error("Error during submission:", error);
         }
     };
@@ -54,6 +61,8 @@ const Register = () => {
     return (
 
         <>
+
+            <Toaster />
             <div className="max-w-lg mx-auto mt-[5rem]  bg-white dark:bg-gray-800 rounded-lg shadow-md px-8 py-10 flex flex-col items-center">
                 <h1 className="text-xl font-bold text-center text-gray-700 dark:text-gray-200 mb-8">Welcome to Our Hotel </h1>
                 <form onSubmit={handleSubmit(onSubmit)} action="#" className='w-full' >
