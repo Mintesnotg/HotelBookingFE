@@ -1,6 +1,5 @@
 
 "use client"
-
 import { registerschema, } from '@/app/helpers/login_registerschema';
 import { RegisterFormType } from '@/app/helpers/types';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -10,7 +9,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import React from 'react'
-import UserRegistration from '@/app/components/navigation/UserRegistration';
+import UserRegistration from '@/app/service/Userservices/UserRegistration';
 import toast ,{ Toaster } from 'react-hot-toast';
 
 import { useRouter } from 'next/navigation';

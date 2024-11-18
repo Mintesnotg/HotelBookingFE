@@ -18,4 +18,10 @@ export type UserRegApiResponse = {
     status?: number;
 };
 
+export type AuthenticatedResponse = {
+    token:string;
+    message:string;
+    operationStatus:number;
+    refreshToken:string
+}
 

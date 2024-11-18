@@ -15,10 +15,6 @@ debugger;
 
      const result: UserRegApiResponse = await response.json();
 
-    // if (!response.ok) {
-    //     return result
-
-    // }
 
     return result
 }

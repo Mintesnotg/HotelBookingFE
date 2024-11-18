@@ -6,10 +6,15 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import Link from 'next/link';
 import { LoginFormType } from '@/app/helpers/types';
+import LoginService from '@/app/service/Userservices/LoginService';
+import { useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
 const Login = () => {
 
-
+    const [loginbuttonloading, setloginbuttonloading] = useState(false);
+     const route=useRouter();
     const {
         register,
         handleSubmit,
@@ -17,23 +22,44 @@ const Login = () => {
       } = useForm<LoginFormType>({
         resolver: zodResolver(loginschema)
       });    
-      
+
     //   const onSubmit: SubmitHandler<LoginFormType> = (data) => console.log(data)
 
-     const onSubmit = (data :LoginFormType) => {
+    const onSubmit = async (data: LoginFormType) => {
         debugger;
-         console.log(data)
-     }
+        setloginbuttonloading(true)
+        try {
+            var response = await LoginService(data)
+             if (response?.operationStatus!=1) {
+                toast.error(`${response?.message}`)
+             } else if (response?.operationStatus===1 && response.token!=null) {
+                route.push('/main')
+             }
+            // console.log(data)
+            setloginbuttonloading(false)
+
+
+        } catch (error) {
+            setloginbuttonloading(false)
+
+        } finally {
+            setloginbuttonloading(false)
+
+        }
+
+    }
 
 
     return (
 
         <>
+        
+        <Toaster   />
             <div className="min-h-screen flex items-center justify-center w-full dark:bg-gray-950">
                 <div className="bg-white dark:bg-gray-900 shadow-md rounded-lg px-8 py-6 max-w-md">
                     <h1 className="text-2xl font-bold text-center mb-4 dark:text-gray-200">Welcome !</h1>
 
-                    <form onSubmit={handleSubmit(onSubmit)} action="">
+                    <form method='POST' onSubmit={handleSubmit(onSubmit)} action="">
 
 
                         <div className="mb-4">
@@ -67,7 +93,9 @@ const Login = () => {
                             </Link>
 
                         </div>
-                        <button type="submit" className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Login</button>
+
+
+                        <button type="submit" className={`  w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${loginbuttonloading ? 'opacity-50 cursor-not-allowed' : ''} `} disabled={loginbuttonloading}> {loginbuttonloading ? 'Login...' : 'Login'}</button>
                     </form>
 
 
