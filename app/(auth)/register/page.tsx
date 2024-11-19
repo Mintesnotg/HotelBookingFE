@@ -29,6 +29,8 @@ const Register = () => {
     });
 
     const [signinloading, setsigninloading] = useState(false);
+    
+    const [showpassword, setshowPPassword] = useState(false)
     const onSubmit = async (data: RegisterFormType) => {
         try {
             setsigninloading(true);
@@ -117,7 +119,7 @@ const Register = () => {
 
                 <div className="mt-4 text-center">
                     <span className="text-sm text-gray-500 dark:text-gray-300">Already have an account? </span>
-                    <Link href="/login" className="text-blue-500 hover:text-blue-600">Login</Link>
+                    <Link href="/login" className="text-blue-500 hover:text-blue-600">Login &rarr;</Link>
                 </div>
 
             </div>
