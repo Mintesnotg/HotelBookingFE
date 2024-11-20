@@ -13,6 +13,8 @@ import UserRegistration from '@/app/service/Userservices/UserRegistration';
 import toast ,{ Toaster } from 'react-hot-toast';
 
 import { useRouter } from 'next/navigation';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -31,6 +33,7 @@ const Register = () => {
     const [signinloading, setsigninloading] = useState(false);
     
     const [showpassword, setshowPPassword] = useState(false)
+    const [showpasswordconfirmation, setshowPPasswordconfirmation] = useState(false)
     const onSubmit = async (data: RegisterFormType) => {
         try {
             setsigninloading(true);
@@ -88,7 +91,7 @@ const Register = () => {
                             </span>
                         </div>
                         <div className="flex items-start flex-col justify-start">
-                            <label htmlFor="email" className="text-sm text-gray-700 dark:text-gray-200 mr-2">Address </label>
+                            <label htmlFor="address" className="text-sm text-gray-700 dark:text-gray-200 mr-2">Address </label>
                             <input type="text" {...register("address")}  className="w-full px-3 dark:text-gray-200 dark:bg-gray-900 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500" />
                             <span className='text-red-300'>
                                 {errors.address && <p>{errors.address.message}</p>}
@@ -97,19 +100,60 @@ const Register = () => {
 
                         <div className="flex items-start flex-col justify-start">
                             <label htmlFor="password" className="text-sm text-gray-700 dark:text-gray-200 mr-2">Password </label>
-                            <input type="password" id="password" {...register("password")}  className="w-full px-3 dark:text-gray-200 dark:bg-gray-900 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500" />
+                          
+
+
+                             <div className='flex w-full border border-gray-300 dark:border-gray-700 rounded-md overflow-hidden'>
+                             <input type= {showpassword ? "text":"password"} id="password" {...register("password")}  className="flex-1 px-3 dark:text-gray-200 dark:bg-gray-900 py-2 focus:outline-none focus:ring-1 focus:ring-blue-500" />
+
+                                <button
+                                    type="button"
+                                    onClick={() => setshowPPassword((prev) => !prev)}
+                                    className=" px-3 flex items-center text-gray-500 hover:text-indigo-500 bg-gray-100 dark:bg-gray-800 "         >
+
+                                    <FontAwesomeIcon icon={showpassword ? faEye : faEyeSlash} />
+                                </button>
+               
+                             </div>
+                 
+            
                             <span className='text-red-300'>
                                 {errors.password && <p>{errors.password.message}</p>}
                             </span>
                         </div>
 
                         <div className="flex items-start flex-col justify-start">
-                            <label htmlFor="confirmPassword" className="text-sm text-gray-700 dark:text-gray-200 mr-2">Confirm Password </label>
-                            <input type="password" id="confirmPassword"  {...register("ConfirmationPassword")} className="w-full px-3 dark:text-gray-200 dark:bg-gray-900 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500" />
-                            <span className='text-red-300'>
-                                {errors.ConfirmationPassword && <p>{errors.ConfirmationPassword.message}</p>}
+                            <label
+                                htmlFor="confirmPassword"
+                                className="text-sm text-gray-700 dark:text-gray-200 mr-2"
+                            >
+                                Confirm Password
+                            </label>
+                            <div className="flex w-full border border-gray-300 dark:border-gray-700 rounded-md overflow-hidden">
+                                <input
+                                    type={showpasswordconfirmation ? "text" : "password"}
+                                    id="confirmPassword"
+                                    {...register("ConfirmationPassword")}
+                                    className="flex-1 px-3 dark:text-gray-200 dark:bg-gray-900 py-2 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => setshowPPasswordconfirmation((prev) => !prev)}
+                                    className="px-3 flex items-center text-gray-500 hover:text-indigo-500 bg-gray-100 dark:bg-gray-800"
+                                >
+                                    <FontAwesomeIcon
+                                        icon={showpasswordconfirmation ? faEye : faEyeSlash}
+                                    />
+                                </button>
+                            </div>
+                            <span className="text-red-300">
+                                {errors.ConfirmationPassword && (
+                                    <p>{errors.ConfirmationPassword.message}</p>
+                                )}
                             </span>
                         </div>
+
+                        
                     </div>
 
                     <button type="submit" className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" ${signinloading ? 'opacity-50 cursor-not-allowed' : ''}`} disabled={signinloading}  >           {signinloading ? 'Signing Up ...' : 'Sign Up'}</button>
