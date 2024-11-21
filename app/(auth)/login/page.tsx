@@ -13,6 +13,7 @@ import { useRouter } from 'next/navigation';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { getCsrfToken, signIn } from "next-auth/react";
 
 const Login = () => {
 
@@ -32,8 +33,17 @@ const Login = () => {
 
     const onSubmit = async (data: LoginFormType) => {
         debugger;
+
+
         setloginbuttonloading(true)
         try {
+
+
+            const result = await signIn("credentials", {
+                email: data.email,
+                password:data.password,
+                redirect: false, // Avoid automatic redirects for custom error handling
+              });
             var response = await LoginService(data)
             if (response?.operationStatus != 1) {
                 toast.error(`${response?.message}`)

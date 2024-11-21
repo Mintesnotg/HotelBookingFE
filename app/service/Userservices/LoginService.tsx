@@ -1,4 +1,8 @@
 import { AuthenticatedResponse, LoginFormType, UserRegApiResponse } from '@/app/helpers/types';
+import NextAuth from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+
+
 import React from 'react'
 
 const  LoginService = async (data :LoginFormType) :Promise<AuthenticatedResponse | undefined> => {

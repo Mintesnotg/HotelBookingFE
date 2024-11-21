@@ -1,36 +1,29 @@
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+import { getToken } from 'next-auth/jwt';
 
-import NextAuth from 'next-auth';
+export async function middleware(request: NextRequest) {
+  const token = await getToken({ req: request, secret: process.env.AUTH_SECRET });
 
-import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
+  // Define paths that require authentication
+  const protectedPaths = ['/main'];
 
-import { authConfig } from './auth.config';
-export default NextAuth(authConfig).auth;
+  const isProtectedPath = protectedPaths.some((path) => request.nextUrl.pathname.startsWith(path));
 
-// This function can be marked `async` if using `await` inside
-export function middleware(request: NextRequest) {
-  // return NextResponse.redirect(new URL('/home', request.url))
+  if (isProtectedPath) {
+    debugger;
+    if (!token) {
+      // Redirect to sign-in page if not authenticated
+      const url = new URL('/login', request.url);
+      url.searchParams.set('callbackUrl', request.url); // Optional: To redirect back after sign-in
+      return NextResponse.redirect(url);
+    }
+  }
 
-  // const { pathname } = request.nextUrl;
-
-  // if (
-  //   (pathname === "/login" || pathname === "/register") &&
-  //   request.cookies.has("userAuth")
-  // )
-  //   return NextResponse.redirect(new URL("/", request.url));
-
-  // if (
-  //   (pathname === "/" || pathname === "/accounts") &&
-  //   !request.cookies.has("userAuth")
-  // )
-  //   return NextResponse.redirect(new URL("/login", request.url));
-
-  // return NextResponse.next();
-
+  return NextResponse.next();
 }
 
-// See "Matching Paths" below to learn more
+// Specify the paths the middleware applies to
 export const config = {
-  // https://nextjs.org/docs/app/building-your-application/routing/middleware#matcher
-  matcher: ['/((?!api|_next/static|_next/image|.*\\.png$).*)'],
+  matcher: ['/main/:path*'],
 };

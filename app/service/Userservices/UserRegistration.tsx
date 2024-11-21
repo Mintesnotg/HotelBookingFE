@@ -1,5 +1,4 @@
 import { RegisterFormType, UserRegApiResponse } from '@/app/helpers/types';
-import React from 'react'
 
 const  UserRegistration = async (data :RegisterFormType) :Promise<UserRegApiResponse> => {
 
